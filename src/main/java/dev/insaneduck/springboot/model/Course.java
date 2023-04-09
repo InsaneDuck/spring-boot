@@ -2,7 +2,6 @@ package dev.insaneduck.springboot.model;
 
 import jakarta.persistence.*;
 
-import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -22,20 +21,6 @@ public class Course
     @Basic
     @Column(name = "code")
     private String code;
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST,
-            CascadeType.REFRESH,
-            CascadeType.MERGE,
-            CascadeType.DETACH})
-    @JoinTable(name = "course_data", joinColumns = @JoinColumn(name = "course_id"),
-            inverseJoinColumns = @JoinColumn(name = "instructor_id"))
-    private List<Instructor> instructors;
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST,
-            CascadeType.REFRESH,
-            CascadeType.MERGE,
-            CascadeType.DETACH})
-    @JoinTable(name = "enrollment_data", joinColumns = @JoinColumn(name = "course_id"),
-            inverseJoinColumns = @JoinColumn(name = "student_id"))
-    private List<Student> students;
 
     public Course(String name, String department, String code)
     {
@@ -89,41 +74,31 @@ public class Course
         this.code = code;
     }
 
-    public List<Instructor> getInstructors()
-    {
-        return instructors;
-    }
-
-    public void setInstructors(List<Instructor> instructors)
-    {
-        this.instructors = instructors;
-    }
-
-    public List<Student> getStudents()
-    {
-        return students;
-    }
-
-    public void setStudents(List<Student> students)
-    {
-        this.students = students;
-    }
-
     @Override
     public boolean equals(Object o)
     {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Course course = (Course) o;
-        return Objects.equals(id, course.id) && Objects.equals(name, course.name) && Objects.equals(department,
-                                                                                                    course.department) && Objects.equals(
-                code, course.code);
+        return Objects.equals(id, course.id) &&
+                Objects.equals(name, course.name) &&
+                Objects.equals(department, course.department) &&
+                Objects.equals(code, course.code);
     }
-
     @Override
     public int hashCode()
     {
         return Objects.hash(id, name, department, code);
     }
 
+    @Override
+    public String toString()
+    {
+        return "Course{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", department='" + department + '\'' +
+                ", code='" + code + '\'' +
+                '}';
+    }
 }

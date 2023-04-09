@@ -20,14 +20,6 @@ public class Student
     @Column(name = "email")
     private String email;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST,
-            CascadeType.REFRESH,
-            CascadeType.MERGE,
-            CascadeType.DETACH})
-    @JoinTable(name = "enrollment_data", joinColumns = @JoinColumn(name = "student_id"),
-            inverseJoinColumns = @JoinColumn(name = "course_id"))
-    private List<Course> courses;
-
     public Student(String name, String email)
     {
         this.name = name;
@@ -69,16 +61,6 @@ public class Student
         this.email = email;
     }
 
-    public List<Course> getCourses()
-    {
-        return courses;
-    }
-
-    public void setCourses(List<Course> courses)
-    {
-        this.courses = courses;
-    }
-
     @Override
     public boolean equals(Object o)
     {
@@ -102,7 +84,6 @@ public class Student
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
-                ", courses=" + +
                 '}';
     }
 }

@@ -6,13 +6,13 @@ import java.sql.Date;
 import java.util.Objects;
 
 @Entity
-@Table(name = "expense_item", schema = "college", catalog = "")
+@Table(name = "expense_item")
 public class ExpenseItem
 {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id")
-    private int id;
+    private Integer id;
     @Basic
     @Column(name = "title")
     private String title;
